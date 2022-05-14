@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:elevation="12dp"
+        app:cardCornerRadius="60dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintStart_toStartOf="@+id/tvCategoryName"
+        app:layout_constraintEnd_toEndOf="@+id/tvCategoryName"
+        app:layout_constraintBottom_toTopOf="@+id/tvCategoryName">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/tvCategoryName"
+        style="@style/color_333333_text_10_roboto_medium_venus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Chinese junction" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

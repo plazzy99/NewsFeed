@@ -7,9 +7,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class NewsModel(
     @SerializedName("articles")
-    var articles: List<Article>?,
+    var articles: ArrayList<Article>? = arrayListOf(),
     @SerializedName("status")
-    var status: String?,
+    var status: String? = "",
     @SerializedName("totalResults")
-    var totalResults: Int?
+    var totalResults: Int? = 0
 ): Parcelable
