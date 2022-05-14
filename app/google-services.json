@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "849773223440",
+    "project_id": "newsfeed-f7296",
+    "storage_bucket": "newsfeed-f7296.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849773223440:android:85af0ff32bcbccf663b495",
+        "android_client_info": {
+          "package_name": "e.vatsal.newsfeed"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849773223440-r4d70fm839tmdvl4e0p7k2tipsol2ihq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALcTwGZV1V94vssyk37Mwp8SUjP2SiDd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849773223440-r4d70fm839tmdvl4e0p7k2tipsol2ihq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
