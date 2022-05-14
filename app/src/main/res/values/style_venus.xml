@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_8_venus">8sp</dimen>
+    <dimen name="text_10_venus">10sp</dimen>
+    <dimen name="text_12_venus">12sp</dimen>
+    <dimen name="text_14_venus">14sp</dimen>
+    <dimen name="text_16_venus">16sp</dimen>
+    <dimen name="text_18_venus">18sp</dimen>
+    <dimen name="text_20_venus">20sp</dimen>
+    <dimen name="text_22_venus">22sp</dimen>
+    <dimen name="text_16_100_venus">16sp</dimen>
+
+</resources>
