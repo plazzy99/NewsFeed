@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import e.vatsal.newsfeed.R
 import e.vatsal.newsfeed.data.model.Article
 import e.vatsal.newsfeed.data.model.NewsModel
 import e.vatsal.newsfeed.databinding.ItemHeadlinesBinding
@@ -36,7 +37,10 @@ class TopHeadLinesAdapter(
             holder.binding.root.layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
         }
         holder.binding.apply {
-            imNewsImage.load(list.articles?.get(position)?.urlToImage)
+            imNewsImage.load(list.articles?.get(position)?.urlToImage){
+                placeholder(R.drawable.news_placeholder)
+                error(R.drawable.news_placeholder)
+            }
             tvNewsTitle.text = list.articles?.get(position)?.title
             tvNewsAuthor.text =
                 list.articles?.get(position)?.author ?: list.articles?.get(position)?.publishedAt

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import coil.load
 import dagger.hilt.android.AndroidEntryPoint
+import e.vatsal.newsfeed.R
 import e.vatsal.newsfeed.data.model.Article
 import e.vatsal.newsfeed.databinding.NewsFeedFragmentBinding
 import timber.log.Timber
@@ -68,7 +69,10 @@ class NewsFeedFragment : Fragment() {
 
     private fun showData() {
         binding.apply {
-            image.load(article.urlToImage)
+            image.load(article.urlToImage){
+                placeholder(R.drawable.news_placeholder)
+                error(R.drawable.news_placeholder)
+            }
             tvTitle.text = article.title
             tvAuthor.text = " Author ${article.author}"
             tvContent.text = article.content

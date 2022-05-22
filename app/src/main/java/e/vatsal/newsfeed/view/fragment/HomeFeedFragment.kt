@@ -1,9 +1,15 @@
 package e.vatsal.newsfeed.view.fragment
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -12,6 +18,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import coil.load
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import e.vatsal.newsfeed.R
@@ -24,8 +32,9 @@ import e.vatsal.newsfeed.view.activity.LoginActivity
 import e.vatsal.newsfeed.view.adapter.CategoryAdapter
 import e.vatsal.newsfeed.view.adapter.TopHeadLinesAdapter
 import e.vatsal.newsfeed.viewmodel.HomeViewModel
+import timber.log.Timber
 
-class HomeFeedFragment : Fragment() {
+class HomeFeedFragment : Fragment(), SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var binding: HomeFeedFragmentBinding
 
@@ -62,10 +71,20 @@ class HomeFeedFragment : Fragment() {
                 Firebase.auth.signOut()
                 requireActivity().startActivity<LoginActivity>()
             }
+            secondRightIcon.visibility = View.VISIBLE
+            secondRightIcon.load(R.drawable.ic_baseline_person_24)
+            secondRightIcon.setOnClickListener {
+                requireActivity().supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<ProfileFragment>(R.id.fragment_container_view)
+                    addToBackStack(null)
+                }
+            }
         }
     }
 
     private fun setUpUI() {
+        setUpThemeOfApp()
         topHeadlinesAdapter = TopHeadLinesAdapter(topHeadLinesData) {
             setFragmentResult("requestKey", bundleOf("article" to it))
             requireActivity().supportFragmentManager.commit {
@@ -105,6 +124,8 @@ class HomeFeedFragment : Fragment() {
             }
 
         })
+
+        binding.swipeRefresh.setOnRefreshListener(this)
     }
 
     private fun showCategory() {
@@ -127,7 +148,7 @@ class HomeFeedFragment : Fragment() {
         for (item in categoryNameList) {
             list.add(
                 PairModel(
-                    "",
+                    getImages(item),
                     item
                 )
             )
@@ -135,7 +156,23 @@ class HomeFeedFragment : Fragment() {
         categoryAdapter.notifyDataSetChanged()
     }
 
+    private fun getImages(item: String): Drawable {
+        return when (item) {
+            "business" -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_business)!!
+            "entertainment" -> ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.ic_entertaintment
+            )!!
+            "general" -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_general)!!
+            "health" -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_health)!!
+            "science" -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_science)!!
+            "sports" -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_sports)!!
+            else -> ContextCompat.getDrawable(requireContext(), R.drawable.ic_technology)!!
+        }
+    }
+
     private fun fetchDataFromServer() {
+        showProgressBar()
         homeViewModel.fetchTopNews(
             "in",
             "business",
@@ -148,17 +185,59 @@ class HomeFeedFragment : Fragment() {
         homeViewModel.topNews.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
+                    hideProgressBar()
                     it.data?.articles?.let { it1 ->
+                        topHeadLinesData.articles?.clear()
                         topHeadLinesData.articles?.addAll(it1)
                     }
                     topHeadlinesAdapter.notifyDataSetChanged()
                 }
                 Status.LOADING -> {
-                    // showToast("Loading")
+
                 }
                 Status.ERROR -> {
-                    //showToast("Error")
+                    hideProgressBar()
                 }
+            }
+        }
+    }
+
+    private fun hideProgressBar() {
+        binding.topHeadingLayout.apply {
+            progressBar.visibility = View.GONE
+            contentGroup.visibility = View.VISIBLE
+        }
+    }
+
+    private fun showProgressBar() {
+        binding.topHeadingLayout.apply {
+            progressBar.visibility = View.VISIBLE
+            contentGroup.visibility = View.GONE
+        }
+    }
+
+    override fun onRefresh() {
+        Handler(Looper.getMainLooper())
+            .postDelayed({
+                fetchDataFromServer()
+                binding.swipeRefresh.isRefreshing = false
+            }, 500)
+    }
+
+    private fun setUpThemeOfApp() {
+        val sharedPreferences = requireActivity().getSharedPreferences(
+            "SharedPrefForTheme",
+            AppCompatActivity.MODE_PRIVATE
+        )
+        Timber.d(sharedPreferences.getBoolean("darkMode", false).toString())
+        when (sharedPreferences.getBoolean("darkMode", false)) {
+            true -> {
+                //dark mode
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            }
+            false -> {
+                //light mode
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             }
         }
     }

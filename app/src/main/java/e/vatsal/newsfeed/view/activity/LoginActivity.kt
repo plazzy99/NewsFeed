@@ -20,6 +20,7 @@ import e.vatsal.newsfeed.utils.extensions.showToast
 import e.vatsal.newsfeed.utils.extensions.startActivity
 import timber.log.Timber
 
+
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 

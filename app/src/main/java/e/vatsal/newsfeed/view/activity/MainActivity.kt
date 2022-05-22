@@ -2,8 +2,8 @@ package e.vatsal.newsfeed.view.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
 import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import dagger.hilt.android.AndroidEntryPoint
 import e.vatsal.newsfeed.R
 import e.vatsal.newsfeed.databinding.ActivityMainBinding
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private fun setUpUI() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add<HomeFeedFragment>(R.id.fragment_container_view)
+            replace<HomeFeedFragment>(R.id.fragment_container_view)
         }
     }
 }

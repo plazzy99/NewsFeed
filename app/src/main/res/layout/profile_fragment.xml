@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_ffffff_venus">
+
+    <include
+        android:id="@+id/header"
+        layout="@layout/layout_header" />
+
+    <ImageView
+        android:id="@+id/imProfileEdit"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_profile_mask"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header" />
+
+    <TextView
+        android:id="@+id/tvNameEdit"
+        style="@style/color_333333_text_16_roboto_medium_venus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:text="Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imProfileEdit" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/etNameEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_button"
+        android:backgroundTint="#F8F8F8"
+        android:inputType="textPersonName"
+        android:singleLine="true"
+        android:text="Vatsal Kesarwani"
+        android:textColor="@color/black"
+        app:boxStrokeColor="#F8F8F8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNameEdit" />
+
+    <TextView
+        android:id="@+id/tvEmailEdit"
+        style="@style/color_333333_text_16_roboto_medium_venus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
+        android:text="Email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/etNameEdit" />
+
+    <TextView
+        android:id="@+id/etEmailEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/bg_button"
+        android:backgroundTint="#F8F8F8"
+        android:hint="Enter your Email here"
+        android:singleLine="true"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:boxStrokeColor="#F8F8F8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEmailEdit" />
+
+    <Switch
+        android:id="@+id/darkMode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="DarkMode"
+        app:layout_constraintStart_toStartOf="@id/etEmailEdit"
+        app:layout_constraintTop_toBottomOf="@id/etEmailEdit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
