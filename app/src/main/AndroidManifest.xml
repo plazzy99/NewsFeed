@@ -30,8 +30,6 @@
         </activity>
 
         <activity android:name=".view.activity.MainActivity" />
-        <activity android:name=".view.activity.CategoryViewAllActivity" />
-        <activity android:name=".view.activity.CategoryActivity" />
     </application>
 
 </manifest>

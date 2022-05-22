@@ -7,6 +7,16 @@
     android:layout_height="wrap_content"
     android:paddingBottom="16dp">
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tvHeading"
         style="@style/color_333333_text_16_roboto_bold_venus"
@@ -24,6 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        app:tint="@color/color_333333_venus"
         android:src="@drawable/ic_baseline_filter_list_24"
         android:textColor="@color/color_ef6c00_venus"
         app:layout_constraintBottom_toBottomOf="@id/tvHeading"
@@ -40,5 +51,11 @@
         app:layout_constraintTop_toBottomOf="@id/tvHeading"
         tools:itemCount="12"
         tools:listitem="@layout/item_headlines" />
+
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/contentGroup"
+        app:constraint_referenced_ids="rcTopHeadlines,tvHeading,imFilter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

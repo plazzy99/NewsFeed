@@ -56,6 +56,7 @@
 
     <color name="colorGrey">#212121</color>
     <color name="color_login_blue">#01B4FF</color>
+    <color name="color_ffffff_102a43">#FFFFFF</color>
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 

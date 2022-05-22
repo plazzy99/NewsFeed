@@ -20,6 +20,8 @@ constructor(
     private val networkHelper: NetworkHelper
 ) : ViewModel() {
 
+    val catName = MutableLiveData<String>()
+
     val topNews = MutableLiveData<Resource<NewsModel>>()
     val searchNews = MutableLiveData<Resource<NewsModel>>()
 

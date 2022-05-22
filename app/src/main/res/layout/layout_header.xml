@@ -14,7 +14,8 @@
         android:src="@drawable/back_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/color_333333_venus" />
 
     <TextView
         android:id="@+id/titleText"
@@ -23,14 +24,26 @@
         android:layout_height="match_parent"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:maxLines="1"
         android:gravity="center_vertical"
-        app:layout_constraintEnd_toStartOf="@id/rightIcon"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/secondRightIcon"
         app:layout_constraintStart_toEndOf="@id/leftIcon"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
         tools:text="Title" />
+
+    <ImageView
+        android:id="@+id/secondRightIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/ic_logout"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/rightIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/color_333333_venus" />
 
     <ImageView
         android:id="@+id/rightIcon"
@@ -40,13 +53,14 @@
         android:src="@drawable/ic_logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/color_333333_venus" />
 
-    <androidx.viewpager.widget.ViewPager
+    <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:background="@color/color_e6e6e6_venus"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

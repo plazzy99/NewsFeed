@@ -3,15 +3,22 @@ package e.vatsal.newsfeed.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import androidx.fragment.app.setFragmentResult
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import e.vatsal.newsfeed.R
 import e.vatsal.newsfeed.data.model.PairModel
 import e.vatsal.newsfeed.databinding.ItemCategoryBinding
-import e.vatsal.newsfeed.view.activity.CategoryActivity
+import e.vatsal.newsfeed.view.fragment.NewsFeedFragment
 
 class CategoryAdapter(
     private val list: ArrayList<PairModel>,
-    private val openedFrom: Int
+    private val openedFrom: Int,
+    val click: (name: String) -> Unit
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     inner class ViewHolder(val binding: ItemCategoryBinding) :
@@ -47,7 +54,7 @@ class CategoryAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            CategoryActivity.startActivity(holder.binding.root.context,list[position].name)
+            click.invoke(list[position].name)
         }
     }
 
