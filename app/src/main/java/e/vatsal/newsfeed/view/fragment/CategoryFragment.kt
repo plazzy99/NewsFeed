@@ -1,23 +1,27 @@
-package e.vatsal.newsfeed.view.activity
+package e.vatsal.newsfeed.view.fragment
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import coil.load
-import dagger.hilt.android.AndroidEntryPoint
 import e.vatsal.newsfeed.R
 import e.vatsal.newsfeed.data.model.NewsModel
-import e.vatsal.newsfeed.databinding.ActivityCategoryBinding
+import e.vatsal.newsfeed.databinding.CategoryFragmentBinding
 import e.vatsal.newsfeed.utils.Status
 import e.vatsal.newsfeed.view.adapter.TopHeadLinesAdapter
 import e.vatsal.newsfeed.viewmodel.HomeViewModel
+import timber.log.Timber
 
-@AndroidEntryPoint
-class CategoryActivity : AppCompatActivity() {
+class CategoryFragment : Fragment() {
 
-    private lateinit var binding: ActivityCategoryBinding
+    private lateinit var binding: CategoryFragmentBinding
 
     private lateinit var homeViewModel: HomeViewModel
 
@@ -27,43 +31,48 @@ class CategoryActivity : AppCompatActivity() {
 
     private var catName: String = ""
 
-    companion object {
-        private const val INTENT_CATEGORY = "intent_category"
-        fun startActivity(context: Context, catName: String) {
-            val intent = Intent(context, CategoryActivity::class.java)
-            intent.putExtra(INTENT_CATEGORY, catName)
-            context.startActivity(intent)
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityCategoryBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = CategoryFragmentBinding.inflate(layoutInflater)
+        homeViewModel = ViewModelProvider(requireActivity()).get(HomeViewModel::class.java)
         fetchIntent()
         setUpUI()
-        fetchDataFromServer()
         setupObserver()
+        return binding.root
     }
 
     private fun fetchIntent() {
-        catName = intent.getStringExtra(INTENT_CATEGORY).toString()
+        catName = homeViewModel.catName.value ?: ""
+        Timber.d(catName)
+        binding.header.titleText.text = catName
+        fetchDataFromServer()
     }
 
     private fun setUpUI() {
         binding.header.apply {
             leftIcon.setOnClickListener {
-                onBackPressed()
+                requireActivity().supportFragmentManager.popBackStack()
             }
             rightIcon.load(R.drawable.ic_baseline_search_24)
             rightIcon.setOnClickListener {
-                //todo
+                requireActivity().supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    replace<SearchFragment>(R.id.fragment_container_view)
+                    addToBackStack(null)
+                }
             }
-            titleText.text = catName
         }
+        binding.topHeadingLayout.imFilter.visibility = View.GONE
         topHeadlinesAdapter = TopHeadLinesAdapter(topHeadLinesData) {
-            CategoryViewAllActivity.startActivity(this, it)
+            setFragmentResult("requestKey", bundleOf("article" to it))
+            requireActivity().supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace<NewsFeedFragment>(R.id.fragment_container_view)
+                addToBackStack(null)
+            }
         }
         binding.topHeadingLayout.rcTopHeadlines.adapter = topHeadlinesAdapter
     }
@@ -78,7 +87,7 @@ class CategoryActivity : AppCompatActivity() {
     }
 
     private fun setupObserver() {
-        homeViewModel.topNews.observe(this) {
+        homeViewModel.topNews.observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     it.data?.articles?.let { it1 ->
@@ -95,5 +104,4 @@ class CategoryActivity : AppCompatActivity() {
             }
         }
     }
-
 }
